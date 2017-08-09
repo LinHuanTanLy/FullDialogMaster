@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <!--底部导航栏的颜色-->
+    <color name="red_font_color">#ff625f</color>
+    <color name="gray_font_color">#999999</color>
+
+
+    <!--主颜色-->
+    <color name="main_font_color">#333</color>
+    <!--次颜色-->
+    <color name="second_font_color">#999</color>
+    <!--正常颜色-->
+    <color name="normal_font_color">#555</color>
+    <!--白颜色-->
+    <color name="white_font_color">#fff</color>
+    <!--红颜色-->
+    <color name="red_border_color">#ff5350</color>
+    <!--橘红色-->
+    <color name="orange_font_color">#a5ff5b3f</color>
+    <!--黄色字体 主要用于发红包-->
+    <color name="yellow_font_color">#ffe14b</color>
+    <!--直播聊天列表的字体颜色-->
+    <color name="gray_dddddd_font_color">#dddddd</color>
+    <!--红包里面的hint的颜色-->
+    <color name="hint_red_pocket">#ffd192</color>
+    <!--透明颜色-->
+    <color name="transparent_color">@android:color/transparent</color>
+    <!--红包获取列表的人的名字的颜色-->
+    <color name="name_red_get_list_name_color">#fcc6c6</color>
+    <!--灰色背景颜色-->
+    <color name="gray_bg">#F5F5F5</color>
+</resources>
