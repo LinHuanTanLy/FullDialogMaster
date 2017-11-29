@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity implements GiftDialogInActiv
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mGiftDialog = new GiftDialogInActivity();
     }
 
     /**
@@ -24,10 +23,7 @@ public class MainActivity extends AppCompatActivity implements GiftDialogInActiv
      * @param view
      */
     public void showDialog(View view) {
-        if (mGiftDialog == null) {
-            mGiftDialog = new GiftDialogInActivity();
-        }
-        mGiftDialog.showDialog(this);
+        mGiftDialog = GiftDialogInActivity.showDialog(this);
     }
 
     /**
@@ -36,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements GiftDialogInActiv
      * @param view
      */
     public void toCallBack(View view) {
-        FragmentFatherActivity.toFragmentFather(MainActivity.this,"1");
+        FragmentFatherActivity.toFragmentFather(MainActivity.this, "1");
     }
 
     /**
@@ -45,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements GiftDialogInActiv
      * @param view
      */
     public void toForResult(View view) {
-        FragmentFatherActivity.toFragmentFather(MainActivity.this,"2");
+        FragmentFatherActivity.toFragmentFather(MainActivity.this, "2");
     }
 
     @Override

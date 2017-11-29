@@ -165,7 +165,7 @@ public class GiftDialogInActivity extends DialogFragment implements PagingScroll
      * @param appCompatActivity
      * @return
      */
-    public GiftDialogInActivity showDialog(FragmentActivity appCompatActivity) {
+    public static GiftDialogInActivity showDialog(FragmentActivity appCompatActivity) {
         FragmentManager fragmentManager = appCompatActivity.getSupportFragmentManager();
         GiftDialogInActivity bottomDialogFragment =
                 (GiftDialogInActivity) fragmentManager.findFragmentByTag(TAG);
