@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     对应方法是：
 
-    ```java
+  ```java
       /**
          * show the fragment with callback
          *
@@ -79,13 +79,13 @@ public class MainActivity extends AppCompatActivity {
         public void toForResult(View view) {
             FragmentFatherActivity.toFragmentFather(MainActivity.this, "2");
         }
-    ```
+   ```
     type是1的话就是使用自定义interface来做交互
     type是2的话就是通过startActivityFragment来做交互
 
     对应的类是**GiftDialogInFragment**,
     核心代码有注释：
-    ```java
+   ```java
                    tvGiftSend.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                         // end of callback config
                     }
 
-    ```
+   ```
 
     作者QQ:137544897  如看不懂可以联系。
     #此致
