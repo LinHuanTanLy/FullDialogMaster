@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white_font_color"
-    android:gravity="bottom"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white_font_color"
+              android:gravity="bottom"
+              android:orientation="vertical"
+              android:padding="@dimen/padding_10dp">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rlv_gift_list"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:scrollbars="none" />
+        android:scrollbars="none"/>
 
     <LinearLayout
         android:id="@+id/ll_gift_indicator"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:gravity="center"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#ccc"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8dp">
 
         <TextView
             android:id="@+id/tv_gift_balance"
@@ -30,7 +36,6 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin_16dp"
             android:layout_marginStart="@dimen/margin_16dp"
-            android:layout_weight="1"
             android:drawableEnd="@mipmap/live_gift_next"
             android:drawableLeft="@mipmap/live_gift_dodo"
             android:drawablePadding="@dimen/padding_10dp"
@@ -39,31 +44,23 @@
             android:gravity="center"
             android:text="15"
             android:textColor="@color/orange_font_color"
-            android:textSize="@dimen/text_size_14sp" />
+            android:textSize="@dimen/text_size_14sp"/>
 
-        <View
-            android:layout_width="@dimen/margin_10dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4" />
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cv_gift_send"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginEnd="@dimen/margin_26dp"
-            android:layout_marginRight="@dimen/margin_26dp"
-            app:cardCornerRadius="10px"
-            app:cardElevation="5dp">
+            android:gravity="end">
 
             <TextView
-                android:layout_width="75dp"
+                android:id="@+id/tv_gift_send"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/fillet_red_bg"
                 android:gravity="center"
+                android:minHeight="36dp"
                 android:text="@string/text_gift"
                 android:textColor="@color/white_font_color"
-                android:textSize="@dimen/text_size_14sp" />
-        </android.support.v7.widget.CardView>
+                android:textSize="@dimen/text_size_14sp"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

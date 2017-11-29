@@ -5,10 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,21 +24,23 @@ import com.ly.fulldialog_master.utils.DeviceUtils;
 import com.ly.fulldialog_master.utils.HorizontalPageLayoutManager;
 import com.ly.fulldialog_master.utils.PagingScrollHelper;
 
+import static com.ly.fulldialog_master.R.id.tv_gift_send;
 import static com.ly.fulldialog_master.R.mipmap.live_gift_noin_gray;
 
 
 /**
- * Created by Ly on 2017/4/21.
+ * @author Ly
+ * @date 2017/4/21
  * 送礼的dialog
  */
 
-public class GiftDialog extends DialogFragment implements PagingScrollHelper.onPageChangeListener {
-    public GiftDialog() {
+public class GiftDialogInActivity extends DialogFragment implements PagingScrollHelper.onPageChangeListener {
+    public GiftDialogInActivity() {
     }
 
-    public static GiftDialog newInstance() {
+    public static GiftDialogInActivity newInstance() {
         Bundle args = new Bundle();
-        GiftDialog fragment = new GiftDialog();
+        GiftDialogInActivity fragment = new GiftDialogInActivity();
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,30 +48,21 @@ public class GiftDialog extends DialogFragment implements PagingScrollHelper.onP
     /**
      * 礼物列表
      */
-    private RecyclerView recyclerViewText;
+    private RecyclerView mRlvGifList;
     /**
      * viewpager的指示器
      */
-    private LinearLayout llGiftIndicator;
-    /**
-     * 账户余额
-     */
-    private TextView tvGiftBalance;
-    /**
-     * 发送
-     */
-    private CardView cvGiftSend;
+    private LinearLayout mLlGiftIndicator;
+
 
     protected Dialog dialog;
-    /**
-     * 加载的适配器
-     */
-    private GiftListAdapter giftListAdapter;
 
     /**
      * 滑动监听控制器
      */
     PagingScrollHelper scrollHelper = new PagingScrollHelper();
+
+
     /**
      * 配置常量  使用2行4列的方式进行布局
      */
@@ -116,12 +108,14 @@ public class GiftDialog extends DialogFragment implements PagingScrollHelper.onP
     }
 
     private void initView(View view) {
-        recyclerViewText = (RecyclerView) view.findViewById(R.id.rlv_gift_list);
-        llGiftIndicator = (LinearLayout) view.findViewById(R.id.ll_gift_indicator);
-        recyclerViewText.setLayoutManager(new HorizontalPageLayoutManager(ROWS, COLUMNS));
-        giftListAdapter = new GiftListAdapter(getActivity());
-        recyclerViewText.setAdapter(giftListAdapter);
-        scrollHelper.setUpRecycleView(recyclerViewText);
+        final onGiftItemClickListener onGiftItemClickListener = (GiftDialogInActivity.onGiftItemClickListener) getActivity();
+        mRlvGifList = view.findViewById(R.id.rlv_gift_list);
+        mLlGiftIndicator = view.findViewById(R.id.ll_gift_indicator);
+        TextView tvGiftSend = view.findViewById(tv_gift_send);
+        mRlvGifList.setLayoutManager(new HorizontalPageLayoutManager(ROWS, COLUMNS));
+        GiftListAdapter mGiftListAdapter = new GiftListAdapter(getActivity());
+        mRlvGifList.setAdapter(mGiftListAdapter);
+        scrollHelper.setUpRecycleView(mRlvGifList);
         scrollHelper.setOnPageChangeListener(this);
         for (int i = 0; i < 2; i++) {
             ImageView imageView = new ImageView(getActivity());
@@ -137,7 +131,15 @@ public class GiftDialog extends DialogFragment implements PagingScrollHelper.onP
             } else {
                 imageView.setImageResource(live_gift_noin_gray);
             }
-            llGiftIndicator.addView(imageView);
+            mLlGiftIndicator.addView(imageView);
+            tvGiftSend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onGiftItemClickListener != null) {
+                        onGiftItemClickListener.onGiftSelectedListener("礼物的id");
+                    }
+                }
+            });
         }
     }
 
@@ -147,21 +149,26 @@ public class GiftDialog extends DialogFragment implements PagingScrollHelper.onP
      * @param position
      */
     private void updateIndicator(int position) {
-        if (position < 0 || position > llGiftIndicator.getChildCount()) {
+        if (position < 0 || position > mLlGiftIndicator.getChildCount()) {
             return;
         } else {
-            for (int i = 0; i < llGiftIndicator.getChildCount(); i++) {
-                ((ImageView) llGiftIndicator.getChildAt(i)).setImageResource(live_gift_noin_gray);
+            for (int i = 0; i < mLlGiftIndicator.getChildCount(); i++) {
+                ((ImageView) mLlGiftIndicator.getChildAt(i)).setImageResource(live_gift_noin_gray);
             }
-            ((ImageView) llGiftIndicator.getChildAt(position)).setImageResource(R.mipmap.live_gift_in_red);
+            ((ImageView) mLlGiftIndicator.getChildAt(position)).setImageResource(R.mipmap.live_gift_in_red);
         }
     }
 
-    //防止重复弹出
-    public static GiftDialog showDialog(AppCompatActivity appCompatActivity) {
+    /**
+     * 防止重复弹出
+     *
+     * @param appCompatActivity
+     * @return
+     */
+    public GiftDialogInActivity showDialog(FragmentActivity appCompatActivity) {
         FragmentManager fragmentManager = appCompatActivity.getSupportFragmentManager();
-        GiftDialog bottomDialogFragment =
-                (GiftDialog) fragmentManager.findFragmentByTag(TAG);
+        GiftDialogInActivity bottomDialogFragment =
+                (GiftDialogInActivity) fragmentManager.findFragmentByTag(TAG);
         if (null == bottomDialogFragment) {
             bottomDialogFragment = newInstance();
         }
@@ -179,5 +186,18 @@ public class GiftDialog extends DialogFragment implements PagingScrollHelper.onP
     @Override
     public void onPageChange(int index) {
         updateIndicator(index);
+    }
+
+
+    /**
+     * item点击的interface
+     */
+    public interface onGiftItemClickListener {
+        /**
+         * item点击的interface
+         *
+         * @param gift
+         */
+        void onGiftSelectedListener(String gift);
     }
 }
